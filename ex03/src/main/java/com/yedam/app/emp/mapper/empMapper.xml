@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.yedam.app.emp.mapper.EmpMapper">
+  <!-- 전체조회 -->
+  <select id="selectEmpAllList" resultType="EmpVO">
+  	SELECT employee_id,
+		  	 first_name, 
+		  	 last_name, 
+		  	 email, 
+		  	 phone_number, 
+		  	 hire_date, 
+		  	 job_id, 
+		  	 salary, 
+		  	 commission_pct, 
+		  	 manager_id, 
+		  	 department_id
+  	FROM employees
+  	ORDER BY employee_id
+  </select>
+  <!-- 단건조회 -->
+  <select id="selectEmpInfo" resultType="EmpVO">
+  	SELECT employee_id,
+		  	 first_name, 
+		  	 last_name, 
+		  	 email, 
+		  	 phone_number, 
+		  	 hire_date, 
+		  	 job_id, 
+		  	 salary, 
+		  	 commission_pct, 
+		  	 manager_id, 
+		  	 department_id
+  	FROM employees
+  	WHERE employee_id = #{ employeeId }
+  	<!-- #{} : perparedStatement 숫자대응, 문자대응 / 쿼리문 보낼때만 사용-->
+  	<!-- ${} : Statement 숫자대응, 문자대응불가 / 쿼리문 작성 시에도 응용 가능 -->
+  </select>
+  <!-- 등록 -->
+  <insert id="insertEmpInfo" parameterType="EmpVO">
+  <!-- employee_id 자동생성 후 등록 -->
+	<selectKey keyProperty="employeeId" resultType="int" order="BEFORE">
+		SELECT NVL(MAX(employee_id), 0) + 1
+		FROM employees
+	</selectKey>
+  	INSERT INTO employees
+  	(employee_id, first_name, last_name, email, hire_date, job_id, salary)
+  	<!--
+  	VALUES(#{employeeId}
+  	,#{firstName}
+  	,#{lastName}
+  	,#{email}
+  	 <if test="hireDate != null">
+  	,#{hireDate}
+  	</if>
+  	<if test="hireDate == null">
+  	,sysdate
+  	</if>
+  	,#{jobId}
+  	,#{salary}) -->
+  	VALUES(#{employeeId}
+  	,#{firstName}
+  	,#{lastName}
+  	,#{email} 
+  	<choose>
+  		<when test="hireDate != null">
+  			,#{hireDate}
+  		</when>
+  		<otherwise>
+  			,sysdate
+  		</otherwise>
+  	</choose>
+  	,#{jobId}
+  	,#{salary})
+  	
+  </insert>
+   <!-- 수정 : 급여를 정해진 비율로 인상 -->
+   <update id="updateEmpSal">
+   		UPDATE employees
+   		SET salary = salary * (1 + #{raise} / 100)
+   		WHERE employee_id = #{emp.employeeId}
+   </update>
+   
+   <!-- 수정 : 사원 정보 수정 -->
+   <!-- 모든 항목에 업데이트 진행, 모든 항목 정보가 존재 -->
+   <!-- 마이바티스에서는 다이나믹sql사용가능 -->
+   <update id="updateEmpInfo" parameterType="EmpVO">
+   		UPDATE employees
+   		<set>
+   			<if test = "firstName != null and  !firstName.equals('')">
+   			frist_name = #{fristName},
+   			</if>
+   			<if test = "email != null and !email.equals('')">
+   			email = #{email},
+   			</if>
+   			<if test = "salary>0">
+   			salary = #{salary},
+   			</if>
+   		</set>
+   		WHERE employee_id = #{emloyeeId}
+   </update>
+  	
+  	<!-- 삭제 -->
+  	<delete id = "deleteEmpInfo" parameterType="int">
+  		DELETE FROM employees
+  		WHERE employee_id = #{empId}
+  	</delete>
+  </mapper>
