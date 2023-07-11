@@ -17,7 +17,7 @@
 		  	 manager_id, 
 		  	 department_id
   	FROM employees
-  	ORDER BY employee_id
+  	ORDER BY employee_id DESC
   </select>
   <!-- 단건조회 -->
   <select id="selectEmpInfo" resultType="EmpVO">
@@ -89,7 +89,7 @@
    		UPDATE employees
    		<set>
    			<if test = "firstName != null and  !firstName.equals('')">
-   			frist_name = #{fristName},
+   			first_name = #{firstName},
    			</if>
    			<if test = "email != null and !email.equals('')">
    			email = #{email},
@@ -98,7 +98,7 @@
    			salary = #{salary},
    			</if>
    		</set>
-   		WHERE employee_id = #{emloyeeId}
+   		WHERE employee_id = #{employeeId}
    </update>
   	
   	<!-- 삭제 -->
