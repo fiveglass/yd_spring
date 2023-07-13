@@ -14,7 +14,9 @@ import com.yedam.app.tx.mapper.AaaMapper;
 
 @Service
 public class EmpServiceImpl implements EmpService {
-
+	
+	//@Autowired : 필요한 의존 객체의 “타입"에 해당하는 빈을 찾아 주입
+	//database-context에 bean으로 등록되어있음
 	@Autowired
 	EmpMapper empMapper;
 	

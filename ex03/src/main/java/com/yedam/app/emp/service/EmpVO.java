@@ -16,10 +16,9 @@ public class EmpVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date hireDate;
 	private String jobId;
-	private double Salary;
+	private double salary;
 	private double commissionPct;
 	private int managerId;
 	private int departmentId;
-	
 	
 }

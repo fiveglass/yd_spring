@@ -7,9 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>전체조회</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <style type="text/css">
 	table, th, td {
 		border : 1px solid black;
+		border-collapse : collapse;
 	}
 </style>
 </head>
@@ -55,6 +57,32 @@
 			alert(msg);
 		}
 	
+		$('button:contains("삭제")').on('click', ajaxDeleteEmp);
+		
+		
+		//closest : 가장 가까운 부모를 선택 (주로, 첫 번째 부모 엘리멘트를 찾는 경우 사용)
+		//stopPropagation : 이벤트 전파를 막을 때
+		function ajaxDeleteEmp(e) {
+			let empId = e.currentTarget.closest('tr').firstElementChild.textContent;
+			
+			$.ajax({
+				url : 'empDelete',
+				type : 'post',
+				data : { id : empId }
+			})
+			.done( data => {
+				if(data == 'Success'){
+					let btn = e.currentTarget;
+					$(btn).closest('tr').remove();
+				}
+			})
+			.fail( reject => console.log(reject));
+			
+			//e.stopPropagation();
+			return false;
+		}
+		
+		
 	</script>
 </body>
 </html>

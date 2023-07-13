@@ -91,11 +91,15 @@
    			<if test = "firstName != null and  !firstName.equals('')">
    			first_name = #{firstName},
    			</if>
+   			<if test = "lastName != null and  !lastName.equals('')">
+   			last_name = #{lastName},
+   			</if>
    			<if test = "email != null and !email.equals('')">
    			email = #{email},
    			</if>
+   		
    			<if test = "salary>0">
-   			salary = #{salary},
+   			salary = #{salary}
    			</if>
    		</set>
    		WHERE employee_id = #{employeeId}

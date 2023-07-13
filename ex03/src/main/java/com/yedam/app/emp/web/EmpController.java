@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -59,6 +60,7 @@ public class EmpController {
 				+"\n 등록된 사원의 사번은 " + empId +"입니다.";
 		}
 		//넘겨주려는 키, 넘겨주려는 값 -> 결국, 지금 result값에 담긴 메세지를 다시 보내주려고 하는 것
+		//등록 성공한 경우에는 redirect:empList가 있음으로 result를 담은 alert창
 		rtt.addFlashAttribute("result", result);
 		return "redirect:empList";
 	}
@@ -67,10 +69,22 @@ public class EmpController {
 	//ct와 server가 서로 json으로 데이터 교환
 	//ct->server : RequestBody
 	//server->ct : ResponseBody
+	//@ResponseBody : 페이지 이동은 되지 않고 값만 전달
 	@PostMapping("/empUpdate")
 	@ResponseBody
-	public Map<String, String> empUpdateProcess(@RequestBody EmpVO empVO){
+	public Map<String, String> empUpdateProcess(@RequestBody EmpVO empVO){	
+//		Map<String, String> map = empService.updateEmp(empVO);
+//		String no = map.get("사원번호");
+		
+		//map 자체를 그대로 return
 		return empService.updateEmp(empVO);
 	}
 	
+	//삭제 : 실행
+	@PostMapping("/empDelete")
+	@ResponseBody
+	public String empDeleteProcess(@RequestParam(name="id") int employeeId) {
+		Map<String, String> map = empService.deleteEMp(employeeId);
+		return map.get("결과");
+	}
 }
