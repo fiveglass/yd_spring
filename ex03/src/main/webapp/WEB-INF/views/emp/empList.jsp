@@ -7,27 +7,35 @@
 <head>
 <meta charset="UTF-8">
 <title>전체조회</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <style type="text/css">
 	table, th, td {
-		border : 1px solid black;
-		border-collapse : collapse;
+		text-align : center;
+	}
+	table {
+		margin-left:auto; 
+		margin-right:auto;		
 	}
 </style>
 </head>
 <body>
-	<button type="button" onclick="location.href='empInsert'">등록</button>
-	<table>
-		<thead>
+<div class="d-grid gap-2 col-6 mx-auto">
+	<button class="btn btn-outline-dark" type="button" onclick="location.href='empInsert'">등록</button>
+</div><br>
+<div class="container">
+	<table class="table table-hover">
+		<thead class="table-light">
 			<tr>
-				<th>employee_id</th>
-				<th>first_name</th>
-				<th>last_name</th>
-				<th>email</th>
-				<th>hire_date</th>
-				<th>job_id</th>	
-				<th>salary</th>	
-				<th>Delete</th>	
+				<th scope="col">employee_id</th>
+				<th scope="col">first_name</th>
+				<th scope="col">last_name</th>
+				<th scope="col">email</th>
+				<th scope="col">hire_date</th>
+				<th scope="col">job_id</th>	
+				<th scope="col">salary</th>	
+				<th scope="col">Delete</th>	
 			</tr>
 		</thead>
 		<tbody>
@@ -38,17 +46,18 @@
 					<td>${emp.lastName }</td>
 					<td>${emp.email }</td>
 					<td>
-					<fmt:formatDate value="${emp.hireDate }" pattern="yyyy년MM월dd일"/>
+					<fmt:formatDate value="${emp.hireDate }" pattern="yyyy.MM.dd."/>
 					</td>
 					<td>${emp.jobId }</td>
 					<td>
 						<fmt:formatNumber value="${emp.salary }" pattern="$#,###"/>
 					</td>
-					<td><button type = "button">삭제</button></td>
+					<td><button type = "button" class="btn btn-outline-secondary btn-sm">삭제</button></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+</div>
 	<script>
 		printMessage(`${result}`);
 	

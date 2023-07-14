@@ -17,9 +17,9 @@
 <h1 align="center">
 	Hello world!  
 </h1>
-
 <P align="center">  The time on the server is ${serverTime}. </P>
-<hr>
+<br>
+<img src="/img/스누피악수.jpeg" alt="악수"/>
 <div id = "btn">
 	<button type="button" class="btn btn-outline-success" onclick="location.href='empList'">
 		사원조회

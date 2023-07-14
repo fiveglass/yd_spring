@@ -11,15 +11,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <style type="text/css">
-	table {
-	    margin-left:auto; 
-	    margin-right:auto;
-	}
-	table, th, td {
-		border : 1px solid black;
-		border-collapse : collapse;
+	table td, th {
 		text-align : center;
-		padding : 10px;
 	}
 </style>
 </head>
@@ -29,14 +22,15 @@
 		Department List 
 	</h1>
 	<br>
-	<table>
-		<thead>
+<div class="container">
+	<table class="table table-hover">
+		<thead class="table-light">
 			<tr>
-				<th>department_id</th>
-				<th>department_name</th>
-				<th>manager_id</th>
-				<th>location_id</th>
-				<th>Del</th>
+				<th scope="col">department_id</th>
+				<th scope="col">department_name</th>
+				<th scope="col">manager_id</th>
+				<th scope="col">location_id</th>
+				<th scope="col">Del</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,6 +45,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+</div>
 	<br>
 	<div class="d-grid gap-2 col-6 mx-auto">
 	  <button class="btn btn-outline-dark" type="button" onclick="location.href='deptInsert'">
