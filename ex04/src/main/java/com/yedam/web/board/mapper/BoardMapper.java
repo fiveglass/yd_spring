@@ -22,6 +22,6 @@ public interface BoardMapper {
 	public int updateBoardInfo(BoardVO boardVO);
 	
 	//삭제
-	public int deleteBoardInfo(int bNo);
+	public int deleteBoardInfo(int bno);
 	
 }

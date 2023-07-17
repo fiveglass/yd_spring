@@ -11,62 +11,66 @@
   	<select id="selectBoardInfo" resultType="BoardVO">
   		SELECT bno, title, contents, writer, regdate, updatedate, image
   		FROM board
-  		WHERE bno = #{bNo}
+  		WHERE bno = #{bno}
   	</select>
   	<insert id="insertBoardInfo" parameterType="BoardVO">
-	  	<selectKey keyProperty="bNo" resultType="int" order="BEFORE">
+	  	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(bno), 100) + 1
 			FROM board
 		</selectKey>
   		INSERT INTO board
 				  		(bno
 				  		, title
-				  		<if test="contents !== null">
+				  		<if test="contents != null">
 				  		, contents
 				  		</if>
 				  		, writer
-				  		<if test="regDate !== null">
+				  		<if test="regDate != null">
 				  		, regdate
 				  		</if>
-				  		<if test="image !== null amd !image.equals('')">
+				  		<if test="image != null and !image.equals('')">
 				  		, image
 				  		</if>)
 			  		VALUES
-			  		(#{bNo}
+			  		(#{bno}
 			  		,#{title}
-			  		<if test="contents !== null and !contents.equals('')">
+			  		<if test="contents != null and !contents.equals('')">
 			  		,#{contents}
 			  		</if>
 			  		,#{writer}
-			  		<if test="regDate !== null">
+			  		<if test="regDate != null">
 			  		,#{regDate}
 			  		</if>
-			  		<if test="image !== null amd !image.equals('')">
+			  		<if test="image != null and !image.equals('')">
 			  		,#{image}
 			  		</if>)	
   	</insert>
   	<update id="updateBoardInfo" parameterType="BoardVO">
   		UPDATE board
   		<set>
-
+				<if test="title != null and !title.equals('')">
   				title = #{title},
-
+				</if>
+				<if test="contents != null">
   				contents = #{contents},
-  				
+  				</if>
+  				<if test="image != null">
   				image = #{image},
-  				
-  				<if test="updateDate !== null">
-  				updatedate = #{updateDate},
   				</if>
-  				<if test="updateDate == null">
-  				updatedate = sysdate
-  				</if>
+  				<choose>
+  					<when test="updateDate != null">
+  						updatedate = #{updateDate}
+  					</when>
+  					<otherwise>
+  						updatedate = sysdate
+  					</otherwise>
+  				</choose>
   		</set>
-  		WHERE bno = #{bNo}
+  		WHERE bno = #{bno}
   	</update>
   	<delete id="deleteBoardInfo" parameterType="int">
   		DELETE FROM board
-  		WHERE bno = #{bNo}
+  		WHERE bno = #{bno}
   	</delete>
   	
   </mapper>

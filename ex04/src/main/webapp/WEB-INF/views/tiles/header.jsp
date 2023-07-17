@@ -34,8 +34,8 @@
 
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="${pageContext.request.contextPath}/" class="nav-link active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="empList" class="nav-link">사원관리</a></li>
-        <li class="nav-item"><a href="deptList" class="nav-link">부서관리</a></li>
+        <li class="nav-item"><a href="boardList" class="nav-link">게시판관리</a></li>
+        <li class="nav-item"><a href="boardInsert" class="nav-link">게시글등록</a></li>
 <!--    <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
         <li class="nav-item"><a href="#" class="nav-link">About</a></li> -->        
       </ul>
